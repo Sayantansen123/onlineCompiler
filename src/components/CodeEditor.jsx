@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Box } from '@chakra-ui/react'
 import {Editor} from "@monaco-editor/react";
 
 function CodeEditor() {
-  const [value,setValue] = useState();
+  const [value,setValue] = useState("");
+  const editorRef = useRef();
+
+  const onMount = (editor) =>{
+    editorRef.current = editor;
+    editor.focus();
+  }
   return (
     <Box>
       <Editor
@@ -15,6 +21,7 @@ function CodeEditor() {
        onChange={
         (value)=> setValue(value)
        }
+       onMount={onMount}
       />
     </Box>
   )
